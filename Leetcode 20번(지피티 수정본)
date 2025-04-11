@@ -1,0 +1,39 @@
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+
+class Solution {
+public:
+    bool isValid(string s);
+};
+
+bool Solution::isValid(string s) {
+    stack<char> Stack;
+    for (int i = 0; i < s.length(); i++)
+    {
+        if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+            Stack.push(s[i]);
+        else {
+            if (Stack.empty()) return false;
+            if (s[i] == ')' && Stack.top() != '(') return false;
+            if (s[i] == '}' && Stack.top() != '{') return false;
+            if (s[i] == ']' && Stack.top() != '[') return false;
+            Stack.pop();
+        }
+    }
+    return Stack.empty();
+}
+
+int main() {
+    string input;
+    cin >> input;
+
+    Solution sol;
+    if (sol.isValid(input))
+        cout << "true\n";
+    else
+        cout << "false\n";
+
+    return 0;
+}
