@@ -1,0 +1,65 @@
+#include<iostream>
+#include<string>
+#include<stack>
+using namespace std;
+
+class Solution {
+private:
+    stack<char>Stack;
+    int re;
+public:
+    string str;
+    bool isValid(string s) {
+        s = str;
+        re = 1;
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s[i] == '(' || s[i] == '{' || s[i] == '[')
+                Stack.push(s[i]);
+            else {
+                if (s[i] == ')') {
+                    if (Stack.top() == '(')
+                        Stack.pop();
+                    else {
+                        re = 0;
+                        break;
+                    }
+                }
+                else if (s[i] == '}') {
+                    if (Stack.top() == '{')
+                        Stack.pop();
+                    else {
+                        re = 0;
+                        break;
+                    }
+                }
+                else if (s[i] == ']') {
+                    if (Stack.top() == '[')
+                        Stack.pop();
+                    else {
+                        re = 0;
+                        break;
+                    }
+                }
+            }
+        }
+        if (Stack.size() != 0 || re == 0)
+            return false;
+        else
+            return true;
+    }
+};
+
+int main() {
+    Solution sol;
+    cin >> sol.str;
+
+    if (sol.isValid(sol.str))
+        cout << "true\n";
+    else
+        cout << "false\n";
+
+    
+
+    return 0;
+}
